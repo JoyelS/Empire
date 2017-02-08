@@ -16,6 +16,7 @@
 
 import sys
 import random
+import time
 
 HuntDict={'Pig':[5,1,3],'Cow':[10,1,8],'Chicken':[3,1,1]}
 #Dictionary of posisble huntable animals, the list value is [health, attack, meat] as integers, see the Animal and Monster classes.
@@ -107,12 +108,13 @@ class Monster:
     def __init__(self):#add population? subclasses to add more exciting monsters.
         NAME=random.choice(list(MonsterDict.keys()))
         self.Name=NAME
+        self.MaxHealth=(MonsterDict[NAME][0]*Monster.Level)
         self.Health=(MonsterDict[NAME][0]*Monster.Level)#Health scales linear
         self.Attack=(MonsterDict[NAME][1]+((Monster.Level-1)*(random.randint(0,3))))#Attack is a bit more volatile
         Monster.Level+=1
 
     def status(self):
-        print('---',self.Name,' has ', self.Health,' Health... ')
+        print('---',self.Name,' has ', self.Health,'/',self.MaxHealth,' Health... ')
 
 
 class Animal:
@@ -123,12 +125,13 @@ class Animal:
         NAME=random.choice(list(HuntDict.keys()))#Random Key for animal dictionary
         self.Name=NAME
         self.Health=HuntDict[NAME][0]
+        self.MaxHealth=HuntDict[NAME][0]
         self.Attack=HuntDict[NAME][1]
         self.Meat=HuntDict[NAME][2]
         Animal.Hunts+=1
 
     def status(self):
-        print('---',self.Name,' has ', self.Health,' Health... ')
+        print('---',self.Name,' has ', self.Health,'/',self.MaxHealth,' Health... ')
     
 
 class Item:
@@ -154,6 +157,8 @@ class Item:
         if BuyWhat in Item.Inventory:
             if Player.Money>=(Item.Inventory[BuyWhat][2]):
                 if Item.Inventory[BuyWhat][1]>0:
+                    time.sleep(0.4)
+                    
                     Player.Money-=Item.Inventory[BuyWhat][2]
                     Player.Attack+=Item.Inventory[BuyWhat][3]#Evaluate type to determine multiply or add.
                     Player.MaxHealth+=Item.Inventory[BuyWhat][4]
@@ -163,6 +168,7 @@ class Item:
 
                     print('*'*50,'\n --- +',Item.Inventory[BuyWhat][3],'Attack!')
                     print(' --- +',Item.Inventory[BuyWhat][4],'Health!')
+                    time.sleep(0.4)
                     main()
                 else:
                     print(Item.Inventory[BuyWhat][0],'IS OUT OF STOCK')
@@ -187,6 +193,7 @@ class Item:
                 main()
             elif BuyOrLeave=='b':
                 #Go to Buy method in Item
+                
                 Item.Buy(USER)
             else:
                 print('INVALID decision')
@@ -210,27 +217,32 @@ def Fight(Foe):
     Loot=random.randint(3,17)*Monster.Level#Random between primes to determine how much loot the monster drops.
     #print(Enemy.Health)#Test
     #print(USER.Health)#Test
+
+    
     while Enemy.Health>0 and USER.Health>0:
         
         Enemy.status()
         Enemy.Health-=USER.Attack
+        
         if Enemy.Health<=0:
             print('*'*50)
-            print(USER.Name,'ATTACKS and KILLs the ', Enemy.Name,'...')
+            print('▬▬ι══════════ﺤ',USER.Name,'ATTACKS and KILLs the ', Enemy.Name,'...')
             #Loots enemies, harvest animals, sells left over meat. Sort out USER.Status's
             if Foe==Monster:
-                print(USER.Name,'finds £'+str(Loot),'by the',Enemy.Name+'!!!')
+                print('---',USER.Name,'finds £'+str(Loot),'by the',Enemy.Name+'!')
                 USER.Money+=Loot
             elif Foe==Animal:#could append HuntsDict list to have 'egg', or 'beef' etc, which could be sold or eaten.
                 MEAT=Enemy.Meat
                 print(USER.Name,'harvests',str(Enemy.Meat),'LBs of meat from the',Enemy.Name)
                 while USER.Health<USER.MaxHealth and MEAT>0:
+                    time.sleep(0.4)
                     print(USER.Name,'Eats 1 pound of his',str(MEAT),'LBs of Meat..')#Could be random health, maybe even bad meat which is harmful
                     MEAT-=1
                     USER.Health+=1
                     if MEAT!=0:
                         USER.status()
                 while MEAT>0 and USER.MaxHealth==USER.Health:
+                    time.sleep(0.4)
                     MEAT-=1
                     print(USER.Name,'sells a pound of meat and gets £1!')
                     USER.Money+=1
@@ -238,28 +250,40 @@ def Fight(Foe):
                         USER.status()
             main()#BACK to main after a victory
             break
-        print(USER.Name, ' ATTACKS...') 
+        print('▬▬ι═══════ﺤ',USER.Name, 'ATTACKS and does',USER.Attack,'damage.') 
         Enemy.status()
         print('\n')
+        time.sleep(0.4)
         
         USER.Fight_Status()
-        print('The ',Enemy.Name,' Attacks...')
+        print('The ',Enemy.Name,' ATTACKS and does', Enemy.Attack,'damage. -═══════ι▬▬')
         USER.Health-=Enemy.Attack
         #THIS CALLS THE LARGE ASCII ART AT THE BEGGINING AND INITIATES A DEATH SEQUENCE
         if USER.Health<=0:
             print('The ', Enemy.Name,' ATTACKS and KILLS ', USER.Name,'...')
             print('*'*50)
             print('RIP in Pieces',USER.Name)
+            print('---You Hunted',Animal.Hunts,'Animals---')
+            print('---You DIED on level',Monster.Level-1,'---')
+            print(USER.Name,'leaves behind £',USER.Money)
             print(DeathScreen)
             print('*'*50)
             break#Terminate code, script runs to end as game is over, USER is dead.
 
         USER.Fight_Status()
         print('\n')
+        time.sleep(0.4)
 
 #STORE
 #Items in the SHOP are defined here, the do not neccessarily need to be defined here but they do need to be defined after the Item class.
-Rings=Item('Magical Ring',5,10,3,1)#The numbers succeding Item name are STOCK,PRICE,ATTACK BONUS,HEALTH BONUS.
+Rings=Item('Magical Ring',5,10,random.randint(0,3),random.randint(0,3))#The numbers succeding Item name are STOCK,PRICE,ATTACK BONUS,HEALTH BONUS.
+JackBoot=Item('Jack Boot',2,random.randint(5,25),2,random.randint(5,25))
+Armour=Item('Armour',1,100,0,30)
+Buckler=Item('Buckler',1,40,3,10)
+Sword=Item('Sword',1,75,50,2)
+Gauntlet=Item('Gauntlet',2,random.randint(5,25),2,random.randint(5,25))
+
+
 #Similar Items such as armour or weapons can be easily defined here and should work
 #make bonuses from rings random?
 
@@ -313,4 +337,3 @@ class Dog:
 
     def howManyDogs():
         return( len(Dog.nameList) )'''
-
