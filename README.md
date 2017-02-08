@@ -11,3 +11,5 @@ I've made some of the python mockup, Fight, and Exit are already programmed, Sho
 It's not too complicated we'll have to start working on our C++ to code the modules though.
 
 I don't know how to divide up the work, you'll have to decide what modules to take.
+
+UPDATE: 8th of Feb, SHOP now working, only hunt has no functionality. All modules can and should be upgraded.
