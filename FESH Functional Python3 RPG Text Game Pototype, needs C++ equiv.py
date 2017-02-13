@@ -8,21 +8,33 @@
 # °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,
 #ADD TIME DELAY FOR ATTACK SEQUENCE
 #ADD OPTION TO BUY MULTIPLE RINGS AT ONCE AND/OR MAKE EACH MORE EXPENSIVE THAN THE LAST
-#IMPLEMENTATION OF SAVE CAPABILITIES (DataBase)
-#Bugs out when inputting nothing, no string then enter hit enter without tpying anything.
+#IMPLEMENTATION OF SAVE CAPABILITIES (DataBase).
 #HUNT could include: Gather berries/ gain health, Find coin/ gain £, kill low level monster, pick up sellable item.
 #Potential for Animal to inherit from monster or vice versa?
 #When Hunting, Tally the meat in std:out
+#Add potion for quicker life renewel
 
 import sys
 import random
 import time
 
-HuntDict={'Pig':[5,1,3],'Cow':[10,1,8],'Chicken':[3,1,1]}
+HuntDict={'Pig':[5,1,3],'Cow':[10,1,8],'Chicken':[3,1,1],
+    }#add more animals
 #Dictionary of posisble huntable animals, the list value is [health, attack, meat] as integers, see the Animal and Monster classes.
-MonsterDict={'Goblin':[5,1]}
+MonsterDict={'Ogre':[5,1],'Zombie':[3,1],'Goblin':[6,1],'Dog':[1,1],'Vampire':[3,2]}
 #Dictionary of possible monsters, I've only put one in so far.
 
+IntroScreen=
+#ROMAN ASCII
+"""
+oooooooooooo oooooooooooo  .oooooo..o ooooo   ooooo 
+`888'     `8 `888'     `8 d8P'    `Y8 `888'   `888' 
+ 888          888         Y88bo.       888     888  
+ 888oooo8     888oooo8     `"Y8888o.   888ooooo888  
+ 888    "     888    "         `"Y88b  888     888  
+ 888          888       o oo     .d8P  888     888  
+o888o        o888ooooood8 8""88888P'  o888o   o888o
+"""
 DeathScreen="""
                            ,--.
                           {    }
@@ -54,35 +66,37 @@ DeathScreen="""
 
 
 def main():
+    print(IntroScreen)
     '''IMPORTANT: This is the main game behaviour, as you can see the player is presented with four options, FIGHT, EXIT, SHOP & HUNT
     The player picks which module to run by typing the first letter, eg.) to Fight, a player inputs 'f'
     At-least programme a module, we can easily divide the workload like this. It will be easy to implement; If someone elses code does not work-
     IT WON'T effect yours or your grade'''
-    
-    USER.status()
-    print('*'*50)
-    print('[---PICK ONE---]')
-    print('[F]ight   ---   ▬▬ι═══════> ')
-    print('[E]xit   ---   ')
-    print('[S]hop   ---   ')
-    FESH=str(input('[H]unt?   ---   ˁ˚ᴥ˚ˀ\n')).lower()
-    print('*'*50)
-    if FESH[0]=='f':
-        Fight(Monster)
-    
-    elif FESH[0]=='e':
-        print('HAVE A GOOD DAY')
-        sys.exit()
-
-    elif FESH[0]=='s':
-        Item.Sell_Inventory()
-
-    elif FESH[0]=='h':
-        Fight(Animal)
+    try:
+        USER.status()
+        print('*'*50)
+        print('[---PICK ONE---]')
+        print('[F]ight   ---   ▬▬ι═══════> ')
+        print('[E]xit   ---   ')
+        print('[S]hop   ---   ')
+        FESH=str(input('[H]unt?   ---   ˁ˚ᴥ˚ˀ\n')).lower()
+        print('*'*50)
+        if FESH[0]=='f':
+            Fight(Monster)
         
-        
-    
-    else:
+        elif FESH[0]=='e':
+            print('HAVE A GOOD DAY')
+            sys.exit()
+
+        elif FESH[0]=='s':
+            Item.Sell_Inventory()
+
+        elif FESH[0]=='h':
+            Fight(Animal)
+            
+        else:
+            print("'",FESH,"'",' is an INVALID command')
+            main()
+    except IndexError:
         print("'",FESH,"'",' is an INVALID command')
         main()
 
@@ -314,6 +328,7 @@ while Play.lower()[0]=='y':
 #menu()
 
 #CLASS WOULD ALLOW ATTRIBUTES TO BE EDITED. EVENT DRIVEN WITHOUT A GUI
+#Simple class example
 '''
 #A CLASS
 
