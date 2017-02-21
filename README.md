@@ -1,4 +1,4 @@
-# Empire
+# [F]ight, [E]xit, [S]hop, [H]unt...
 
 Hello, Charlie here. Kamal suggested I make a Python mockup of what our programme should be. He wanted an Idea from me an Tahmid that lesson that you missed and said an Incremental game was too simple.
 
