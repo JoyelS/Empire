@@ -17,3 +17,5 @@ UPDATE: 8th of Feb, SHOP now working, only hunt has no functionality. All module
 UPDATE: 8th of Feb, 'FESH Functional Python3 RPG...'.py is a functional, though very basic Python mockup. It has a few vulnrabilities and is very limited but it the gist of it.
 
 UPDATE: 19th of Feb, Just uploaded a simple C++ file. I think I will try to do the menu system and figure out the relational database. I will help where possible with code integration but you guys need to start producing prototypes for your function/modules - Fight, Hunt and Shop.
+
+UPDATE: 21th of Feb, I've uploaded some code which relates to fighting, it's not perfect yet and so far it only fights a goblin but we can alter the code so that it uses the same code to fight all of the monsters. It's called "FightGoblinTest" have a look at it if you wish and if you find something to improve please let me know. - Joyel
