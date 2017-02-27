@@ -21,3 +21,5 @@ UPDATE: 19th of Feb, Just uploaded a simple C++ file. I think I will try to do t
 UPDATE: 21th of Feb, I've uploaded some code which relates to fighting, it's not perfect yet and so far it only fights a goblin but we can alter the code so that it uses the same code to fight all of the monsters. It's called "FightGoblinTest" have a look at it if you wish and if you find something to improve please let me know. - Joyel
 
 UPDATE: 27th of Feb, Me and sam were looking into improving the fight module which is called for both fight and hunt and I have uploaded a part of it. This new code should be run after the player has chosen the fight option from the menu charlie has made. This new code provides three different attack styles which the player can choose from.
+
+UPDATE: 27th of Feb, I have uploaded part 2 of the code, to run it just put both parts of the code together. 
