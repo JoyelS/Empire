@@ -1,5 +1,5 @@
 if (hp < 1) {
-            cout << "You died! The beast still has " << mhp << " HP left, you suck!\n";
+            cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
             cin.get();
             return 0;
         }
@@ -69,7 +69,7 @@ if (hp < 1) {
  
              cout << "The monster stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
             if (hp < 1) {
-                cout << "You died! The beast still has " << mhp << " HP left, you suck!\n";
+                cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
                 cin.get();
                 return 0;
             }
