@@ -23,3 +23,5 @@ UPDATE: 21th of Feb, I've uploaded some code which relates to fighting, it's not
 UPDATE: 27th of Feb, Me and sam were looking into improving the fight module which is called for both fight and hunt and I have uploaded a part of it. This new code should be run after the player has chosen the fight option from the menu charlie has made. This new code provides three different attack styles which the player can choose from.
 
 UPDATE: 27th of Feb, I have uploaded part 2 of the code, to run it just put both parts of the code together. 
+
+UPDATE: 28TH FEB: I have started on the shop option for our game, where the player can purchase different weaponsand armoury etc
