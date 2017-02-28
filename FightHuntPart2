@@ -54,7 +54,7 @@ if (hp < 1) {
             cin.get();
  
             if(mhp < 1) {
-                cout << "You killed the monster! How dare you kill something!\n";
+                cout << "You have killed the enemy! You find loot!\n";
                 cin.get();
                 return 0;
             }
