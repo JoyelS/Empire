@@ -27,9 +27,14 @@ class USER{
 			return name;
 			}
 		//Methods to change and retreive attack.
-		void change_attack(int x){
-			attack+=x;
+		void change_attack(int x){//made an int to test method to permanantly modify value.
+			this->attack+=x;
+			//return this->attack;
+		
 			}
+
+		void update_attack(){
+			attack=1;};
 		int get_attack(){
 			return attack;
 			}
@@ -61,6 +66,7 @@ class USER{
 void fight(USER user){
 
 	cout<<"RUN FIGHT SEQUENCE"<<endl;
+	
 	user.change_attack(1);
 }
 
@@ -83,7 +89,6 @@ void hunt(USER user){
 void shop(USER user){//Changed int for void
 
 	cout<<"RUN SHOP SEQUENCE"<<endl;
-	user.change_money(0.01);
 }
 
 void  menu(USER user)
@@ -105,13 +110,19 @@ UserIn=tolower(UserIn[0]);
 
 	if (UserIn=="f"){
 		cout<<"FIGHT"<<endl;
-		fight(user);
+		fight(user);//Fight and other modules should return values which are used to alter user stats.
+	
+		//user.update_attack(); - update_attack can be used to set attack to a specific value, change_attack is used to alter it by the agument.
+		//user.get_status(); - for testing.
+
+		user.change_attack(1);//for example here attack is increased by 1.
 		menu(user);
 			}
 
 	else if (UserIn=="s"){
 		cout<<"SHOP"<<endl;
 		shop(user);
+		user.change_money(0.01);
 		menu(user);
 			}
 
@@ -123,6 +134,7 @@ UserIn=tolower(UserIn[0]);
 	else if (UserIn=="h"){
 		cout<<"HUNT"<<endl;
 		hunt(user);
+		user.change_health(1);
 		menu(user);
 			}
 	else{
@@ -138,11 +150,8 @@ cout<<"What is your Username? ";
 cin>>Username;
 cout<<"\nUsername is: "<<Username<<endl;
 
-USER user(Username,10,5,0.01);
-for (int i=0; i<10;i++){
-	user.get_status();
-	user.change_attack(1);
-}
+USER user(Username, 10,5,0.01);
+
 menu(user);
 return 0;
 }
