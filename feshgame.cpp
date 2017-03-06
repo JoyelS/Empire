@@ -1,3 +1,5 @@
+//Unary scope resolution operator, use ::, create USER in the global namespace.
+
 #include <iostream>
 #include <string>
 #include <algorithm>
