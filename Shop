@@ -1,0 +1,111 @@
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int choice;
+    int gold = 0;
+    int sword = 0;
+    int armour = 0;
+    int potion = 0;
+
+
+    system("cls");
+    cout << "\n Item added - 1000 gold" << endl;
+    cout << "\n ";
+    system("pause");
+
+start:
+    system("cls");
+    cout << "\n Where do you go?" << endl;
+    cout << "\n 1. Shop" << endl;
+    cout << "\n> ";
+    cin >> choice;
+    switch (choice) {
+shop:
+        case 1:
+            system("cls");
+            cout << "\n Shop" << endl;
+            cout << "\n Buy or Go Back?" << endl;
+            cout << "\n 1. Buy" << endl;
+            cout << "\n 2. Go back" << endl;
+            cout << "\n> ";
+            cin >> choice;
+            switch (choice) {
+buy:
+                case 1:
+                    system("cls");
+                    cout << "\n Shop, Buy" << endl;
+                    cout << "\n What do you buy?" << endl;
+                    cout << "\n 1. Sword    150 gold" << endl;
+                    cout << "\n 2. Armour   200 gold" << endl;
+                    cout << "\n 3. Potion   100 gold" << endl;
+                    cout << "\n 4. Go back" << endl;
+                    cout << "\n> ";
+                    cin >> choice;
+                    switch (choice) {
+                        case 1:
+                            if (gold < 500) {
+                                system("cls");
+                                cout << "\n You don't have enough gold!"
+                                     << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            } else {
+                                system("cls");
+                                gold = gold - 500;
+                                sword = sword + 1;
+                                cout << "\n Item added - Sword" << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            }
+                        case 2:
+                            if (gold < 1000) {
+                                system("cls");
+                                cout << "\n You don't have enough gold!"
+                                     << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            } else {
+                                system("cls");
+                                gold = gold - 1000;
+                                armour = armour + 1;
+                                cout << "\n Item added - Armour" << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                                case 3:
+                                    if (gold < 10) {
+                                        system("cls");
+                                        cout << "\n You don't have enough gold!"
+                                             << endl;
+                                        cout << "\n ";
+                                        system("pause");
+                                        goto buy;
+
+                                    } else {
+                                        system("cls");
+                                        gold = gold - 100;
+                                        potion = potion + 1;
+                                        cout << "\n Item added - Potion"
+                                             << endl;
+                                        cout << "\n ";
+                                        system("pause");
+                                        goto buy;
+
+                                        case 4:
+                                            goto shop;
+                                    }
+                            }
+                    }
+             case 3:
+                    goto start;
+            }
+    }
+}
+              
