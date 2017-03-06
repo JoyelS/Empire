@@ -134,7 +134,7 @@ UserIn=tolower(UserIn[0]);
 	if (UserIn=="f"){
 		cout<<"FIGHT"<<endl;
 		fight(user);//Fight and other modules should return values which are used to alter user stats.
-
+        user.change_health(-1);//HOW DO YOU PERMANANTLY MODIFY CLASS ATTRIBUTES FROM WITHIN FUNCTIONS.
 		//user.update_attack(); - update_attack can be used to set attack to a specific value, change_attack is used to alter it by the agument.
 		//user.get_status(); - for testing.
 			}
