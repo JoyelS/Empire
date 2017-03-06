@@ -25,3 +25,5 @@ UPDATE: 27th of Feb, Me and sam were looking into improving the fight module whi
 UPDATE: 27th of Feb, I have uploaded part 2 of the code, to run it just put both parts of the code together. 
 
 UPDATE: 28TH FEB: I have started on the shop option for our game, where the player can purchase different weaponsand armoury etc
+
+UPDATE: 6TH MAY: Uploaded the shop option for our game, where you can buy amour, sword and potion, might alter changes, put will upload code if any changes are made 
