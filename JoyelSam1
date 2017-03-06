@@ -1,0 +1,148 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+class USER{
+	public:
+
+		//Default constructor
+		USER(string name, int h, int a, double m){
+			change_name(name);
+			health=h;
+			attack=a;
+			money=m;
+			/*change_health(health);
+			change_attack(attack);
+			change_money(money);*/
+			}
+
+		//Methods to change and retreive/view name.
+		void change_name(string NewName){
+			name=NewName;
+			}
+		string get_name(){
+			return name;
+			}
+		//Methods to change and retreive attack.
+		void change_attack(int x){//made an int to test method to permanantly modify value.
+			this->attack+=x;
+			//return this->attack;
+			}
+		void update_attack(int x){
+			attack=x;};
+		int get_attack(){
+			return attack;
+			}
+		//Methods to change and retreive health.
+		void change_health(int x){
+			health+=x;
+			}
+		int get_health(){
+			return health;
+			}
+		//Methods to change and retreive money value.
+		void change_money(double x){
+			money+=x;
+			}
+		double get_money(){
+			return money;
+			}
+		//Method to get status of USER.
+		void get_status(){
+			cout<<name<<" has "<<health<<" health, "<<attack<<" attack & £"<<money<<endl;
+}
+	private:
+		string name;
+		int health;
+		int attack;
+		double money;
+
+};
+int fight(USER user){
+
+    //static fight sequence, will only ever be against goblin, could be cloned for hunt, no loot or stat augmentation other than loss of health. To apply generally see python prototype.
+    //Health of the user is not returned.
+
+	cout<<"RUN FIGHT SEQUENCE"<<endl;
+
+
+    int choice;
+    int mhp, hp, i, init, atk, def, agi, matk, mdef, magi, damage, mdamage;
+    atk = 10;
+    def = 15;
+    agi = 5;
+    matk = 10;
+    mdef = 15;
+    magi = 5;
+ 
+    srand(unsigned(time(0)));
+    init = rand()%2+1;
+    mhp = rand()%50+60;
+    hp = rand()%20+80;
+    if (init == 1){
+        cout << "You can start!\n";
+    }
+    while(hp > 0 || mhp > 0){
+        cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+        do{cin >> choice;} while(choice > 3 || choice < 1);
+        switch (choice){
+        case 1:
+            atk = rand()%20+10;
+            def = rand()%10+10;
+            agi = rand()%5;
+            break;
+        case 2:
+            atk = rand()%5+10;
+            def = rand()%10+10;
+            agi = rand()%15;
+            break;
+        case 3:
+            atk = rand()%10+10;
+            def = rand()%20+10;
+            agi = rand()%5;
+            break;
+        }
+        choice = rand()%3;
+ 
+        switch (choice){
+        case 1:
+            matk = rand()%20+10;
+            mdef = rand()%10+10;
+            magi = rand()%5;
+            break;
+        case 2:
+            matk = rand()%5+10;
+            mdef = rand()%10+10;
+            magi = rand()%15;
+            break;
+        case 3:
+            matk = rand()%10+10;
+            mdef = rand()%20+10;
+            magi = rand()%5;
+            break;
+        }
+         mdamage = (atk - magi) - (mdef/atk);
+        if (mdamage <0){
+        mdamage = 0;
+        }
+        mhp = mhp - mdamage;
+        cout << "You did " << mdamage << " damage to the monster!\n";
+        cin.get();
+ 
+        if(mhp < 1) {
+            cout << "You have killed the enemy! You find loot!\n";
+            cin.get();
+            return 0;
+        }
+ 
+        cout << "The monter now has " << mhp << " HP left.\n";
+        damage = (matk - agi) - (def / matk);
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+        hp = hp - damage;
+ 
+        cout << "The monster stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
