@@ -6,7 +6,7 @@
 
 using namespace std;
 
-unsigned int pause = 600000; //pause time in microseconds for engagement functions.
+//unsigned int pause = 600000; //pause time in microseconds for engagement functions.
 
 class CHARACTER{//CHARACTER CLASS, CAN BE USED GENERICALLY FOR ANIMALS, USERS, MONSTERS, ETC.
 public:
@@ -96,7 +96,7 @@ UserIn=tolower(UserIn[0]);
                 user.change_health(-1*goblin.get_attack());
                 user.get_status();
                 }
-            usleep(pause);
+            usleep(600000);
             }
 	}
 
