@@ -75,7 +75,7 @@ int main()
             return 0;
         }
  
-        cout << "The monter now has " << mhp << " HP left.\n";
+        cout << "The monster now has " << mhp << " HP left.\n";
         damage = (matk - agi) - (def / matk);
         if (damage < 0)
         {
