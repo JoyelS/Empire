@@ -1,3 +1,5 @@
+//PUT calls to your functions or the code for you modules in the menu code where appropriate. f should run fight, s should run shop, h should run hunt.
+
 #include <iostream>
 #include <string>
 #include <exception>
