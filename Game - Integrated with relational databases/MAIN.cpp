@@ -188,6 +188,8 @@ int LOAD_user(CHARACTER * userValue) {
 	cur->reset();
 	
 	if (exists == 1) {
+		cout<<"Loading "<<userValue->getname()<<"'s stats from the database..."<<endl;
+		
 		cur->set_sql("SELECT * FROM users WHERE username=?;");
 		cur->prepare();
 		cur->bind(1,userValue->get_name());
@@ -196,6 +198,9 @@ int LOAD_user(CHARACTER * userValue) {
 		userValue->set_health(cur->get_int(2));
 		userValue->set_money(cur->get_double(3));
 	}
+	
+	else{
+		cout<<userValue->getname()<<" added to database."<<endl;
 	return 0;
 }
 int main(){
