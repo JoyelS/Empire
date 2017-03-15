@@ -1,0 +1,231 @@
+#include <iostream>
+#include <string>
+#include <exception>
+#include "libsqlite.hpp"
+#include <unistd.h>//for sleep ability
+#include <cstdlib>
+#include <ctime>
+
+
+using namespace std;
+int nrEnemies = 0;
+string scores="Stats.sqlite";
+
+//unsigned int pause = 600000; //pause time in microseconds for engagement functions.
+//
+//
+
+
+
+
+
+
+
+
+
+
+class CHARACTER{//CHARACTER CLASS, CAN BE USED GENERICALLY FOR ANIMALS, USERS, MONSTERS, ETC.
+public:
+    //default constructor.
+    CHARACTER(string N="Default name", int H=10, int A=1, double M=0.01){
+        name=N;
+        health=H;
+        attack=A;
+        money=M;
+    }
+
+    void get_status()
+    {cout<<name<<" has "<<health<<" health, "<<attack<<" attack & £"<<money<<endl;}
+
+    void change_name(string new_name){
+        name=new_name;
+    }
+
+    void change_health(int x){ //specified as non void in case it will be useful to produce a return.
+        health+=x;
+    }
+    void change_attack(int x){ //specified as non void in case it will be useful to produce a return.
+        attack+=x;
+    }
+    void change_money(double x){ //specified as non void in case it will be useful to produce a return.
+        money+=x;
+    }
+
+    void set_health(int x){  //Method to set value to same as in database. 
+       health=x;
+    }
+    void set_attack(int x){ //Method to set value to same as in database.       
+       attack=x;
+    }
+    void set_money(double x){  //specified as non void in case it will be useful to produce a return.
+       money=x;
+    }
+
+    //variables to view private attributes.
+    string get_name(){
+        return name;
+    }
+    int get_health(){
+        return health;
+    }
+    int get_attack(){
+        return attack;
+    }
+    double get_money(){
+        return money;
+    }
+
+private:
+    string name;
+    int health;
+    int attack;
+    double money;
+};
+
+//---------------------------------- END OF CHARACTER CLASS ----------------------------------
+//Test creations of character objects.
+CHARACTER user("a", 100,3,0.01);
+CHARACTER goblin("GOBLIN",10,2,3.50);
+
+//MENU FUNCTION:
+string UserIn;//Declaration of user input for menu function.
+
+
+
+int fight()
+{
+    cout<<user.get_name()<<endl;
+    cout<<user.get_health()<<endl;
+    user.change_health(-7);
+    cout<<user.get_health()<<endl;
+}
+
+
+
+
+void  menu()
+{
+user.get_status();
+
+cout<<"[F]ight"<<endl<<"[E]xit"<<endl
+<<"[S]hop"<<endl<<"[H]unt"<<endl;
+
+cin>>UserIn;
+
+UserIn=UserIn[0];
+UserIn=tolower(UserIn[0]);
+
+	if (UserIn=="f"){
+		
+        fight();
+	}
+
+	else if (UserIn=="s"){
+		cout<<"SHOP"<<endl;
+
+		user.change_money(1.00);
+			}
+
+	else if (UserIn=="e"){
+		cout<<"EXIT"<<endl;
+			}
+
+	else if (UserIn=="h"){
+		cout<<"HUNT"<<endl;
+		user.change_health(1);
+			}
+	else{
+		cout<<"INVALID INPUT"<<endl;
+			}
+}
+//---------------------------------- END OF MENU FUNCTION ----------------------------------
+
+void UPDATE_score(CHARACTER x){
+	sqlite::sqlite db(scores);//Open database***
+	
+	auto cur = db.get_statement();
+	try {
+	cur->set_sql("SELECT count(*) FROM users where username=?;");
+	cur->prepare();
+	cur->bind(1,x.get_name());
+	cur->step();
+	if (cur->get_int(0) == 1) {
+		cur->reset();
+		cur->set_sql("UPDATE users SET attack=?,health=?,money=? where username=?");
+		cur->prepare();
+		cur->bind(1,x.get_attack());
+		cur->bind(2,x.get_health());
+		cur->bind(3,x.get_money());
+		cur->bind(4,x.get_name());
+		cur->step();
+	} else {
+
+		cur->reset();//CUR RESETS AFTER EACH QUERY.
+		cur->set_sql("INSERT INTO users (username,health,attack,money)"
+			"VALUES (?,?,?,?);");//Need 'or replace' type command, where identicle udernames are not enterred twice.
+
+		cur->prepare();
+
+		cur->bind(1,x.get_name());
+		cur->bind(2,x.get_health());
+		cur->bind(3,x.get_attack());
+		cur->bind(4,x.get_money());
+
+		cur->step();
+	}
+	}
+	catch(std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+	//delete db;//Is this the corresponding close command***
+}
+
+int LOAD_user(CHARACTER * userValue) {
+	int exists = 0;
+	sqlite::sqlite db(scores);//Open database***
+	auto cur = db.get_statement();
+	cur->set_sql("SELECT count(*) FROM users where username=?;");
+	
+	cur->prepare();
+	cur->bind(1,userValue->get_name());
+	cur->step();
+	exists = cur->get_int(0);
+	cur->reset();
+	
+	if (exists == 1) {
+		cout<<"Loading "<<userValue->get_name()<<"'s stats from the database..."<<endl;
+		
+		cur->set_sql("SELECT * FROM users WHERE username=?;");
+		cur->prepare();
+		cur->bind(1,userValue->get_name());
+		cur->step();
+		userValue->set_attack(cur->get_int(1));//0 reading? get_int, value (1) should be primary key username!?*****!!!!!!!!
+		userValue->set_health(cur->get_int(2));
+		userValue->set_money(cur->get_double(3));
+	}
+	
+	else{
+		cout<<userValue->get_name()<<" added to database."<<endl;
+	return 0;
+}
+}
+
+int main(){
+/*fucntion should be
+if user name in database, update values
+else add user name to database (highscores/saves.*/
+//passclass(user);
+
+string Username;//User picks his name which is passed to the USER class, user should be checked in database to see if it exists, if so it should assume those stats.
+cout<<"What is your Username? ";
+cin>>Username;
+cout<<"\nUsername is: "<<Username<<endl;
+user.change_name(Username);
+LOAD_user(&user);
+do{
+    menu();
+UPDATE_score(user);
+}while (UserIn!="e");
+//exit();
+return 0;
+}
