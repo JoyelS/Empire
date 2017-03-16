@@ -140,12 +140,12 @@ int fight()
     hp = rand()%20+80;
     
     if (init == 1){
-        cout << "You can start!\n";
+        cout << "You begin to fight a Monster and get ready to fight!\n";
     }
     
     
     while(hp > 0 || mhp > 0){
-        cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+        cout << "QUICK! Choose a style of attacking!\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Attack.\n";
         do{cin >> choice;} while(choice > 3 || choice < 1);
         switch (choice){
         case 1:
@@ -214,10 +214,10 @@ int fight()
             return 0;
         }
         else {
-            cout << "You can start!\n";
+            cout << "You begin to fight a Monster and get ready to fight!\n";
  
         while(hp > 0 || mhp > 0) {
-            cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+            cout << "QUICK! Choose a style of attacking!\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Attack.\n";
             do{cin >> choice;} while(choice > 3 || choice < 1);
             switch (choice){
             case 1:
