@@ -7,6 +7,7 @@
 
 
 using namespace std;
+int nrEnemies = 0;
 
 string scores="Stats.sqlite";
 
@@ -44,6 +45,183 @@ string time(){
 	
 	return time;
 }
+
+//
+//
+//
+
+int fight()
+{
+    int choice;
+    int mhp, hp, i, init, atk, def, agi, matk, mdef, magi, damage, mdamage;
+    atk = 10;
+    def = 15;
+    agi = 5;
+    matk = 10;
+    mdef = 15;
+    magi = 5;
+    //int nrEnemies = 0;
+ 
+    while (nrEnemies>=0)
+    {
+    
+    srand(unsigned(time(0)));
+    init = rand()%2+1;
+    mhp = rand()%50+60;
+    hp = rand()%20+80;
+    
+    if (init == 1){
+        cout << "You can start!\n";
+    }
+    
+    
+    while(hp > 0 || mhp > 0){
+        cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+        do{cin >> choice;} while(choice > 3 || choice < 1);
+        switch (choice){
+        case 1:
+            atk = rand()%20+10;
+            def = rand()%10+10;
+            agi = rand()%5;
+            break;
+        case 2:
+            atk = rand()%5+10;
+            def = rand()%10+10;
+            agi = rand()%15;
+            break;
+        case 3:
+            atk = rand()%10+10;
+            def = rand()%20+10;
+            agi = rand()%5;
+            break;
+        }
+        choice = rand()%3;
+ 
+        switch (choice){
+        case 1:
+            matk = rand()%20+10;
+            mdef = rand()%10+10;
+            magi = rand()%5;
+            break;
+        case 2:
+            matk = rand()%5+10;
+            mdef = rand()%10+10;
+            magi = rand()%15;
+            break;
+        case 3:
+            matk = rand()%10+10;
+            mdef = rand()%20+10;
+            magi = rand()%5;
+            break;
+        }
+         mdamage = (atk - magi) - (mdef/atk);
+        if (mdamage <0){
+        mdamage = 0;
+        }
+        mhp = mhp - mdamage;
+        cout << "You did " << mdamage << " damage to the monster!\n";
+        cin.get();
+ 
+        if(mhp < 1) {
+             nrEnemies = nrEnemies+1;
+            //cout << "You have killed the enemy! You find loot!\n";
+            cout << "You have killed " << nrEnemies << " enemy/enemies! You find loot!\n";
+            cin.get();
+            return 0;
+        }
+ 
+        cout << "The monster now has " << mhp << " HP left.\n";
+        damage = (matk - agi) - (def / matk);
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+        hp = hp - damage;
+ 
+        cout << "The monster stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
+        if (hp < 1) {
+            cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+            cin.get();
+            return 0;
+        }
+        else {
+            cout << "You can start!\n";
+ 
+        while(hp > 0 || mhp > 0) {
+            cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+            do{cin >> choice;} while(choice > 3 || choice < 1);
+            switch (choice){
+            case 1:
+                atk = rand()%20+10;
+                def = rand()%10+10;
+                agi = rand()%5;
+                break;
+            case 2:
+                atk = rand()%5+10;
+                def = rand()%10+10;
+                agi = rand()%15;
+                break;
+            case 3:
+                atk = rand()%10+10;
+                def = rand()%20+10;
+                agi = rand()%5;
+                break;
+            }
+            choice = rand()%3;
+ 
+            switch (choice){
+            case 1:
+                matk = rand()%20+10;
+                mdef = rand()%10+10;
+                magi = rand()%5;
+                break;
+            case 2:
+                matk = rand()%5+10;
+                mdef = rand()%10+10;
+                magi = rand()%15;
+                break;
+            case 3:
+                matk = rand()%10+10;
+                mdef = rand()%20+10;
+                magi = rand()%5;
+                break;
+            }
+             mdamage = (atk - magi) - (mdef/atk);
+            if (mdamage <0){
+            mdamage = 0;
+            }
+            mhp = mhp - mdamage;
+            cout << "You did " << mdamage << " damage to the monster!\n";
+            cin.get();
+ 
+            if(mhp < 1) {
+                nrEnemies = nrEnemies+1;
+                //cout << "You have killed the enemy! You find loot!\n";
+                cout << "You have killed " << nrEnemies << " enemy/enemies! You find loot!\n";
+                cin.get();
+                return 0;
+            }
+ 
+            cout << "The monster now has " << mhp << " HP left.\n";
+            damage = (matk - agi) - (def / matk);
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+            hp = hp - damage;
+ 
+             cout << "The monster stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
+            if (hp < 1) {
+                cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+                cin.get();
+                return 0;
+            }
+        }
+    }
+}
+}
+}
+
 
 
 //---------------------------------- BEGGINING OF CHARACTER CLASS ----------------------------------
@@ -128,27 +306,29 @@ UserIn=UserIn[0];
 UserIn=tolower(UserIn[0]);
 
 	if (UserIn=="f"){
-		cout<<"FIGHT"<<endl;
-		//SIMPLE FIGHT NEEDS ELABORATION. No loot, No max health etc.
+		fight();
+		
+		//cout<<"FIGHT"<<endl;
+		///SIMPLE FIGHT NEEDS ELABORATION. No loot, No max health etc.
 		//Random loot would be good.
-		cout<<user.get_name()<<" fights "<<goblin.get_name()<<endl;
-        cout<<"------------------------------------------------"<<endl;
-        goblin.get_status();
+		//cout<<user.get_name()<<" fights "<<goblin.get_name()<<endl;
+        //cout<<"------------------------------------------------"<<endl;
+        //goblin.get_status();
 
-        cout<<"------------------------------------------------"<<endl;
-        while (user.get_health()>0 &&goblin.get_health()>0){
-            cout<<user.get_name()<<" attacks "<<goblin.get_name()<<" for "<<user.get_attack()<<endl;
-            goblin.change_health(-1*user.get_attack());
-            goblin.get_status();
-            cout<<"------------------------------------------------"<<endl;
+        //cout<<"------------------------------------------------"<<endl;
+        //while (user.get_health()>0 &&goblin.get_health()>0){
+            //cout<<user.get_name()<<" attacks "<<goblin.get_name()<<" for "<<user.get_attack()<<endl;
+            //goblin.change_health(-1*user.get_attack());
+            //goblin.get_status();
+            //cout<<"------------------------------------------------"<<endl;
 
-            if (goblin.get_health()>0){
-                cout<<goblin.get_name()<<" attacks "<<user.get_name()<<" for "<<goblin.get_attack()<<endl;
-                user.change_health(-1*goblin.get_attack());
-                user.get_status();
-                }
-            usleep(600000);
-            }//END OF FIGHT EXAMPLE CODE.
+            //if (goblin.get_health()>0){
+                //cout<<goblin.get_name()<<" attacks "<<user.get_name()<<" for "<<goblin.get_attack()<<endl;
+                //user.change_health(-1*goblin.get_attack());
+                //user.get_status();
+                //}
+            //usleep(600000);
+            //}//END OF FIGHT EXAMPLE CODE.
 
 	}
 
