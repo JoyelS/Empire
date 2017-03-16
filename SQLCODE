@@ -1,0 +1,29 @@
+void Update_fight(string username){ 
+    sqlite::sqlite db(killcount);//Open database***
+
+    auto cur = db.get_statement();
+
+    try
+    {
+        cout << "update" << endl;
+        cur->set_sql("INSERT INTO tbl_monsterkills(nrEnemies, username,)" 
+                     "VALUES(?,?,?);");
+        cur->prepare();
+        cur->bind(1,nrEnemies);
+        cur->bind(2,username);
+       
+
+        cur->step();
+        
+    }
+    catch(std::exception& e) 
+    {
+        std::cout << e.what() << std::endl;
+        
+        cout << nrEnemies << "" << username << endl;
+        
+        
+    }
+    
+        //delete db;//Is this the corresponding close command***
+}
