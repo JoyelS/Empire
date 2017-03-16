@@ -312,7 +312,7 @@ int hunt()
     hp = rand()%20+80;
     
     if (init == 1){
-        cout << "You can start!\n";
+        cout << "You can start hunting!\n";
     }
     
     
@@ -365,7 +365,7 @@ int hunt()
  
         if(mhp < 1) {
              nrEnemies = nrEnemies+1;
-            //cout << "You have killed the enemy! You find loot!\n";
+            //cout << "You have killed the animal! You find loot!\n";
             cout << "You have killed " << nrEnemies << " enemy/enemies! You find loot!\n";
             cin.get();
             return 0;
@@ -381,12 +381,12 @@ int hunt()
  
         cout << "The animal stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
         if (hp < 1) {
-            cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+            cout << "You died! The animal still has " << mhp << " HP left, better luck next time!\n";
             cin.get();
             return 0;
         }
         else {
-            cout << "You can start!\n";
+            cout << "You can start hunting!\n";
  
         while(hp > 0 || mhp > 0) {
             cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
@@ -453,7 +453,7 @@ int hunt()
  
              cout << "The animal stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
             if (hp < 1) {
-                cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+                cout << "You died! The animal still has " << mhp << " HP left, better luck next time!\n";
                 cin.get();
                 return 0;
             }
