@@ -222,7 +222,177 @@ int fight()
 }
 }
 
-
+int hunt()
+{
+    int choice;
+    int mhp, hp, i, init, atk, def, agi, matk, mdef, magi, damage, mdamage;
+    atk = 10;
+    def = 15;
+    agi = 5;
+    matk = 10;
+    mdef = 15;
+    magi = 5;
+    //int nrEnemies = 0;
+ 
+    while (nrEnemies>=0)
+    {
+    
+    srand(unsigned(time(0)));
+    init = rand()%2+1;
+    mhp = rand()%50+60;
+    hp = rand()%20+80;
+    
+    if (init == 1){
+        cout << "You can start!\n";
+    }
+    
+    
+    while(hp > 0 || mhp > 0){
+        cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+        do{cin >> choice;} while(choice > 3 || choice < 1);
+        switch (choice){
+        case 1:
+            atk = rand()%20+10;
+            def = rand()%10+10;
+            agi = rand()%5;
+            break;
+        case 2:
+            atk = rand()%5+10;
+            def = rand()%10+10;
+            agi = rand()%15;
+            break;
+        case 3:
+            atk = rand()%10+10;
+            def = rand()%20+10;
+            agi = rand()%5;
+            break;
+        }
+        choice = rand()%3;
+ 
+        switch (choice){
+        case 1:
+            matk = rand()%20+10;
+            mdef = rand()%10+10;
+            magi = rand()%5;
+            break;
+        case 2:
+            matk = rand()%5+10;
+            mdef = rand()%10+10;
+            magi = rand()%15;
+            break;
+        case 3:
+            matk = rand()%10+10;
+            mdef = rand()%20+10;
+            magi = rand()%5;
+            break;
+        }
+         mdamage = (atk - magi) - (mdef/atk);
+        if (mdamage <0){
+        mdamage = 0;
+        }
+        mhp = mhp - mdamage;
+        cout << "You did " << mdamage << " damage to the Animal!\n";
+        cin.get();
+ 
+        if(mhp < 1) {
+             nrEnemies = nrEnemies+1;
+            //cout << "You have killed the enemy! You find loot!\n";
+            cout << "You have killed " << nrEnemies << " enemy/enemies! You find loot!\n";
+            cin.get();
+            return 0;
+        }
+ 
+        cout << "The Animal now has " << mhp << " HP left.\n";
+        damage = (matk - agi) - (def / matk);
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+        hp = hp - damage;
+ 
+        cout << "The Animal stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
+        if (hp < 1) {
+            cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+            cin.get();
+            return 0;
+        }
+        else {
+            cout << "You can start!\n";
+ 
+        while(hp > 0 || mhp > 0) {
+            cout << "What do you want to do?\n 1 -> Fierce Attack \n 2 -> Light Attack \n 3 -> Defensive Dance.\n";
+            do{cin >> choice;} while(choice > 3 || choice < 1);
+            switch (choice){
+            case 1:
+                atk = rand()%20+10;
+                def = rand()%10+10;
+                agi = rand()%5;
+                break;
+            case 2:
+                atk = rand()%5+10;
+                def = rand()%10+10;
+                agi = rand()%15;
+                break;
+            case 3:
+                atk = rand()%10+10;
+                def = rand()%20+10;
+                agi = rand()%5;
+                break;
+            }
+            choice = rand()%3;
+ 
+            switch (choice){
+            case 1:
+                matk = rand()%20+10;
+                mdef = rand()%10+10;
+                magi = rand()%5;
+                break;
+            case 2:
+                matk = rand()%5+10;
+                mdef = rand()%10+10;
+                magi = rand()%15;
+                break;
+            case 3:
+                matk = rand()%10+10;
+                mdef = rand()%20+10;
+                magi = rand()%5;
+                break;
+            }
+             mdamage = (atk - magi) - (mdef/atk);
+            if (mdamage <0){
+            mdamage = 0;
+            }
+            mhp = mhp - mdamage;
+            cout << "You did " << mdamage << " damage to the Animal!\n";
+            cin.get();
+ 
+            if(mhp < 1) {
+                nrEnemies = nrEnemies+1;
+                //cout << "You have killed the enemy! You find loot!\n";
+                cout << "You have killed " << nrEnemies << " enemy/enemies! You find loot!\n";
+                cin.get();
+                return 0;
+            }
+ 
+            cout << "The Animal now has " << mhp << " HP left.\n";
+            damage = (matk - agi) - (def / matk);
+            if (damage < 0)
+            {
+                damage = 0;
+            }
+            hp = hp - damage;
+ 
+             cout << "The Animal stole " << damage << " points from you. You still have, " << hp << " HP points availalble\n";
+            if (hp < 1) {
+                cout << "You died! The beast still has " << mhp << " HP left, better luck next time!\n";
+                cin.get();
+                return 0;
+            }
+        }
+    }
+}
+}
+}
 
 //---------------------------------- BEGGINING OF CHARACTER CLASS ----------------------------------
 
@@ -343,8 +513,9 @@ UserIn=tolower(UserIn[0]);
 			}
 
 	else if (UserIn=="h"){
-		cout<<"HUNT"<<endl;
-		user.change_health(1);
+		//cout<<"HUNT"<<endl;
+		//user.change_health(1);
+		hunt();
 			}
 	else{
 		cout<<"INVALID INPUT"<<endl;
