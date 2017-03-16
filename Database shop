@@ -1,0 +1,24 @@
+void database(){
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+        
+    int rc = sqlite3_open("database.db", &db); //Creating Database with name 
+    string sql = "INSERT INTO INV (QUANTITY,PRICE) VALUES (?,?)"; //Values added to database
+    if (sqlite3_open("database.db", &db) == SQLITE_OK) 
+    {
+            sqlite3_prepare( db, sql.c_str(), -1, & stmt, NULL);
+            sqlite3_bind_text(stmt, 1, QUANTITY.c_str(), QUANTITY.length(), SQLITE_TRANSIENT);
+            sqlite3_bind_text(stmt, 2, PRICE.c_str(), PRICE.length(), SQLITE_TRANSIENT);
+            sqlite3_step( stmt );
+    }
+ else
+     {
+        cout << "Failed to connect\n";
+     }
+
+sqlite3_finalize(stmt);
+sqlite3_close(db);
+    }
+
+
+    
