@@ -1,0 +1,131 @@
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <sqlite3.h>
+
+using namespace std;
+
+string QUANTITY;
+string PRICE;
+
+
+int main() {
+    int choice;
+    int price = 0; 
+    int sword = 0;
+    int armour = 0;
+    int potion = 0;
+
+
+    cout << "\n Item added - 1000 gold" << endl; //Coins Added
+    cout << "\n ";
+    system("pause");
+
+start:
+    cout << "\n Where do you go?" << endl;
+    cout << "\n 1. Shop" << endl;
+    cout << "\n> ";
+    cin >> choice;
+    switch (choice) {
+shop:
+        case 1: //use of case instead if statements 
+            cout << "\n Shop" << endl; 
+            cout << "\n Buy or Go Back?" << endl;// option given to buy or go back a screen
+            cout << "\n 1. Buy" << endl; //option to buy 
+            cout << "\n 2. Go back" << endl; // option to go back 
+            cout << "\n> ";
+            cin >> choice;
+            switch (choice) {
+buy:
+                case 1:
+                    cout << "\n Shop, Buy" << endl;
+                    cout << "\n What do you buy?" << endl;
+                    cout << "\n 1. Sword    150 gold" << endl;
+                    cout << "\n 2. Armour   200 gold" << endl;
+                    cout << "\n 3. Potion   100 gold" << endl;
+                    cout << "\n 4. Go back" << endl;
+                    cout << "\n> ";
+                    cin >> choice;
+                    switch (choice) {
+                        case 1: //if gold is less then 500 coin it will state you dont have enough gold 
+                            if (price < 1000) {
+                                cout << "\n You don't have enough gold!"
+                                     << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            } else {
+                                price = price - 1000;
+                                sword = sword + 1;
+                                cout << "\n Item added - Sword" << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            }
+                        case 2:
+                            if (price < 1000) {
+                                cout << "\n You don't have enough gold!"
+                                     << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                            } else {
+                                price = price - 1000;
+                                armour = armour + 1;
+                                cout << "\n Item added - Armour" << endl;
+                                cout << "\n ";
+                                system("pause");
+                                goto buy;
+                                case 3:
+                                    if (price < 10) {
+                                        cout << "\n You don't have enough gold!"
+                                             << endl;
+                                        cout << "\n ";
+                                        system("pause");
+                                        goto buy;
+
+                                    } else {
+                                        price = price - 100;
+                                        potion = potion + 1;
+                                        cout << "\n Item added - Potion"
+                                             << endl;
+                                        cout << "\n ";
+                                        system("pause");
+                                        goto buy;
+
+                                        case 4: //fourth case goes back onto the the shop screen
+                                            goto shop;
+                                    }
+                            }
+                    }
+                    
+             case 3: //goes onto the start screen
+                    goto start;
+            }  
+    }
+}
+
+void database(){
+    sqlite3 *db;
+    sqlite3_stmt *stmt;
+        
+    int rc = sqlite3_open("database.db", &db); //Creating Database with name 
+    string sql = "INSERT INTO INV (QUANTITY,PRICE) VALUES (?,?)"; //Values added to database
+    if (sqlite3_open("database.db", &db) == SQLITE_OK) 
+    {
+            sqlite3_prepare( db, sql.c_str(), -1, & stmt, NULL);
+            sqlite3_bind_text(stmt, 1, QUANTITY.c_str(), QUANTITY.length(), SQLITE_TRANSIENT);
+            sqlite3_bind_text(stmt, 2, PRICE.c_str(), PRICE.length(), SQLITE_TRANSIENT);
+            sqlite3_step( stmt );
+    }
+ else
+     {
+        cout << "Failed to connect\n";
+     }
+
+sqlite3_finalize(stmt);
+sqlite3_close(db);
+    }
+
+
+    
