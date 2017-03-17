@@ -116,6 +116,7 @@ string UserIn;//Declaration of user input for menu function.
 
 //---------------------------------- MENU FUNCTION  ----------------------------------
 void  menu()
+//allows user to dictate course of play with input (cin).
 {
 user.get_status();
 
@@ -155,8 +156,9 @@ UserIn=tolower(UserIn[0]);
 
 	else if (UserIn=="s"){
 		cout<<"SHOP"<<endl;
-
+		//Tahmid Implement shop.
 		user.change_money(1.00);
+		//simple change money method, will increase relevant users money attribute.
 			}
 
 	else if (UserIn=="e"){
@@ -165,7 +167,9 @@ UserIn=tolower(UserIn[0]);
 
 	else if (UserIn=="h"){
 		cout<<"HUNT"<<endl;
+		//Samuel and Joyel Implement fight and hunt.
 		user.change_health(1);
+		//simple health change method.
 			}
 	else{
 		cout<<"INVALID INPUT"<<endl;
@@ -212,6 +216,7 @@ void UPDATE_score(CHARACTER x){//Simple if/esle statement determines whether the
 	cur->bind(1,x.get_name());
 	cur->step();
 	if (cur->get_int(0) == 1) {
+	//This first part uses the SQL to determine whethere this is a new user, if it is a user is created as an entry in the users table.
 		cur->reset();
 		cur->set_sql("UPDATE users SET attack=?,health=?,money=? where username=?");
 		cur->prepare();
@@ -336,12 +341,15 @@ cout<<"\nUsername is: "<<Username<<endl;
 user.change_name(Username);
 cout<<"Date: "<<date()<<", Time: "<<time()<<" UTC+1"<<endl;
 LOAD_user(&user);
+	
 do{
+	//do loop which keeps the game running unless the player has decided to exit.
 	menu();
 	UPDATE_score(user);
 	LOG_play(user);
 	usleep(1500000);
 }while (UserIn!="e");
+	
 cout<<"Would you like to view "<<user.get_name()<<"'s game records?"<<endl;
 cout<<"[Y]es/[N]o"<<endl;
 string Viewd;
@@ -367,10 +375,4 @@ else{cout<<"Game Ended."<<endl;}
 //exit();
 return 0;
 }
-//Save games database -- attack health money + time (last played could be a collumn in the original db.)
-//mutually exclusive cases for highscore displays.
 
-
-//make played the pk, accompany with string of nicely displayed time.
-//PRODUCE FUNCTIONS TO PRINT DATABASES. HIGHSCORE, PLYAE LOG, STORIES ETC.
-//make a vector of usernames maybe, scan through usernames when printing.
