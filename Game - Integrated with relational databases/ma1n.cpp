@@ -328,11 +328,10 @@ void PRINT_UserHis(CHARACTER x){
 	}
 
 }
+
+//---------------------------------- END OF DATA BASE FUNCTIONS  ----------------------------------
+
 int main(){
-/*fucntion should be
-if user name in database, update values
-else add user name to database (highscores/saves.*/
-//passclass(user);
 
 string Username;//User picks his name which is passed to the USER class, user should be checked in database to see if it exists, if so it should assume those stats.
 cout<<"What is your Username? ";
